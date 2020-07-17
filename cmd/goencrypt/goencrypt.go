@@ -21,22 +21,20 @@ func init(){
 }
 
 var text string
-var key []byte
 
 func main(){
-	bytes := make([]byte, 32)
-	rand.Read(bytes)
-	passphrase := hex.EncodeToString(bytes)
-	fmt.Println("[GoEncrypt] Your Passphrase 1 is: " + passphrase)
-	key, _ = hex.DecodeString(passphrase)
-	plaintext := []byte(text)
-	block, _ := aes.NewCipher(key)
-	nonce := make([]byte, 12)
-	rand.Read(nonce)
-	noncehex := hex.EncodeToString(nonce)
-	fmt.Println("[GoEncrypt] Your Passphrase 2 is: " + noncehex)
-	aesgcm, _ := cipher.NewGCM(block)
-	ciphertext := aesgcm.Seal(nil, nonce, plaintext, nil)
-	fmt.Print("[GoEncrypt] Encrypted text: ")
-	fmt.Printf("%x\n", ciphertext)
+	passbytes := make([]byte, 32) //Create array of 32 empty bytes
+	rand.Read(passbytes) //Randomize data in previously created array
+	passphrase := hex.EncodeToString(passbytes) //Encode the Bytes into a hexidecimal string
+	fmt.Println("[GoEncrypt] Your Passphrase 1 is: " + passphrase) //Tell the user what that string is, known as 'Passphrase 1'
+	plaintext := []byte(text) //Convert user provided plaintext into an array of bytes
+	block, _ := aes.NewCipher(passbytes) //Create a new cipher block with 'passphrase 1'
+	nonce := make([]byte, 12) //Create array of 12 empty bytes
+	rand.Read(nonce) //Randomize data in previously created array
+	noncehex := hex.EncodeToString(nonce) //Encode the nonce into a hexidecimal string
+	fmt.Println("[GoEncrypt] Your Passphrase 2 is: " + noncehex) //Tell the user what that string is, known as 'Passphrase 2'
+	aesgcm, _ := cipher.NewGCM(block) //Things I don't fully understand yet
+	ciphertext := aesgcm.Seal(nil, nonce, plaintext, nil) //Things I don't fully understand yet part 2 electric boogaloo
+	fmt.Print("[GoEncrypt] Encrypted text: ") //Finally tell the user their encrypted text
+	fmt.Printf("%x\n", ciphertext) //^
 }

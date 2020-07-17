@@ -25,12 +25,12 @@ var text,passphrase,passphrase2 string
 var key []byte
 
 func main(){
-	key, _ := hex.DecodeString(passphrase)
-	ciphertext, _ := hex.DecodeString(text)
-	nonce, _ := hex.DecodeString(passphrase2)
-	block, _ := aes.NewCipher(key)
-	aesgcm, _ := cipher.NewGCM(block)
-	plaintext, _ := aesgcm.Open(nil, nonce, ciphertext, nil)
-	fmt.Print("[GoDecrypt] Decrypted text: ")
-	fmt.Printf("%s\n", plaintext)
+	ciphertext, _ := hex.DecodeString(text) //Decode hexadecimal ciphertext into bytes
+	key, _ := hex.DecodeString(passphrase) //Decode hexadecimal passphrase 1 into bytes
+	nonce, _ := hex.DecodeString(passphrase2) //Decode hexadecimal passphrase 2 into bytes
+	block, _ := aes.NewCipher(key) //Create a new cipher block with decoded passphrase 1
+	aesgcm, _ := cipher.NewGCM(block) //Things I don't fully understand yet
+	plaintext, _ := aesgcm.Open(nil, nonce, ciphertext, nil) //Things I don't fully understand yet part 2 electric boogaloo
+	fmt.Print("[GoDecrypt] Decrypted text: ") //Finally tell the user their decrypted text
+	fmt.Printf("%s\n", plaintext) //^
 }
