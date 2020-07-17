@@ -13,3 +13,11 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+.DS_Store
+
+cmd/goencrypt/decrypt-keys.txt
+
+cmd/goencrypt/output.bin
+
+cmd/goencrypt/output.txt
